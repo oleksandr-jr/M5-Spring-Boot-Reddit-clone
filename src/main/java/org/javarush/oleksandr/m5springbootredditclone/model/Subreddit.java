@@ -21,7 +21,10 @@ public class Subreddit {
     private String description;
     private Instant createdDate;
 
-    @OneToMany(targetEntity = Post.class)
+    @ManyToMany(targetEntity = Post.class)
+    @JoinTable(name = "subreddit_posts",
+            joinColumns = @JoinColumn(name = "subreddit_id"),
+            inverseJoinColumns = @JoinColumn(name = "post_id"))
     private List<Post> posts;
 
     @ManyToOne(targetEntity = User.class)
