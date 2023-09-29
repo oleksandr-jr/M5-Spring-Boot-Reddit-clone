@@ -12,6 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name = "subreddit")
 public class Subreddit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

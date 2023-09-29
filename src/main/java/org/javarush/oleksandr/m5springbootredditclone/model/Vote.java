@@ -21,5 +21,4 @@ public class Vote {
 
     @ManyToOne(targetEntity = User.class)
     private User user;
-
 }
