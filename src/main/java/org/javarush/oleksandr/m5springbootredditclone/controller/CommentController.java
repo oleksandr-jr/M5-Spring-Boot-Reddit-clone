@@ -1,28 +1,31 @@
 package org.javarush.oleksandr.m5springbootredditclone.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.javarush.oleksandr.m5springbootredditclone.dto.CommentDTO;
+import org.javarush.oleksandr.m5springbootredditclone.mapper.CommentMapper;
 import org.javarush.oleksandr.m5springbootredditclone.model.Comment;
 import org.javarush.oleksandr.m5springbootredditclone.service.CommentService;
 import org.javarush.oleksandr.m5springbootredditclone.service.PostService;
 import org.javarush.oleksandr.m5springbootredditclone.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 @RequiredArgsConstructor
 @RequestMapping("/api/comments")
 public class CommentController {
     private final CommentService commentService;
+    private final CommentMapper commentMapper;
     private final PostService postService;
     private final UserService userService;
 
-    @GetMapping("/post/{id}")
-    public List<Comment> getCommentsByPost(@PathVariable Long id) {
-        return commentService.findByPost(postService.findById(id));
+    @GetMapping("/by-post/{id}")
+    public List<CommentDTO> getCommentsByPost(@PathVariable Long id) {
+        return  commentService.findByPost(postService.findById(id)).stream()
+                .map(commentMapper::mapToDto)
+                .toList();
     }
 
     @GetMapping("/user/{id}")

@@ -37,4 +37,8 @@ public class CommentService {
     public void delete(Comment comment) {
         commentRepository.delete(comment);
     }
+
+    public int countByPost(Post post) {
+        return commentRepository.countByPost(post);
+    }
 }

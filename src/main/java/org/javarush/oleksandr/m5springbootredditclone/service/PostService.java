@@ -18,7 +18,7 @@ public class PostService {
     private final PostRepository postRepository;
 
     @Transactional(readOnly = true)
-    public Iterable<Post> findAll() {
+    public List<Post> findAll() {
         return postRepository.findAll();
     }
 

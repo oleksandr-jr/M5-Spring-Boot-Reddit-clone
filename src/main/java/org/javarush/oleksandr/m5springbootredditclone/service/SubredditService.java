@@ -7,12 +7,17 @@ import org.javarush.oleksandr.m5springbootredditclone.model.Subreddit;
 import org.javarush.oleksandr.m5springbootredditclone.repository.SubredditRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class SubredditService {
     private final SubredditRepository subredditRepository;
     private final SubredditMapper subredditMapper;
 
+    public List<Subreddit> findAll() {
+        return subredditRepository.findAll();
+    }
     public Subreddit findById(Long id) {
         return subredditRepository.findById(id).orElse(null);
     }
