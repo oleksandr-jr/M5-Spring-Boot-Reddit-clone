@@ -1,11 +1,13 @@
 package org.javarush.oleksandr.m5springbootredditclone.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.javarush.oleksandr.m5springbootredditclone.dto.PostRequestDTO;
 import org.javarush.oleksandr.m5springbootredditclone.dto.PostResponseDTO;
 import org.javarush.oleksandr.m5springbootredditclone.mapper.PostMapper;
 import org.javarush.oleksandr.m5springbootredditclone.model.Post;
 import org.javarush.oleksandr.m5springbootredditclone.service.PostService;
 import org.javarush.oleksandr.m5springbootredditclone.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,5 +33,16 @@ public class PostController {
     @GetMapping("user/{id}")
     public List<Post> getPostByUser(@PathVariable Long id) {
         return postService.findByUser(userService.findById(id));
+    }
+
+    @GetMapping("subreddit/{id}")
+    public List<PostResponseDTO> getPostBySubreddit(@PathVariable Long id) {
+        return postService.findBySubredditId(id).stream().map(postMapper::mapToDto).toList();
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createPost(@RequestBody PostRequestDTO postRequestDTO) {
+        postService.save(postRequestDTO);
+        return ResponseEntity.ok().build();
     }
 }
