@@ -9,6 +9,7 @@ import org.javarush.oleksandr.m5springbootredditclone.model.User;
 import org.javarush.oleksandr.m5springbootredditclone.service.CommentService;
 import org.javarush.oleksandr.m5springbootredditclone.service.PostService;
 import org.javarush.oleksandr.m5springbootredditclone.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,11 @@ public class CommentController {
         return commentService.findByPost(postService.findById(id)).stream()
                 .map(commentMapper::mapToDto)
                 .toList();
+    }
+
+    @GetMapping("by-post/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("Test");
     }
 
     @GetMapping("user/{id}")

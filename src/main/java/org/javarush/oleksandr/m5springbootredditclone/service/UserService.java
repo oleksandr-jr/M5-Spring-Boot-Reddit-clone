@@ -3,6 +3,7 @@ package org.javarush.oleksandr.m5springbootredditclone.service;
 import lombok.RequiredArgsConstructor;
 import org.javarush.oleksandr.m5springbootredditclone.model.User;
 import org.javarush.oleksandr.m5springbootredditclone.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,8 +26,16 @@ public class UserService {
         userRepository.delete(user);
     }
 
+    public UserDetails findByUsername(String username) {
+        User user = userRepository.findByUsername(username);
+        UserDetails userDetails  =
+                org.springframework.security.core.userdetails.User.builder()
+                        .username(user.getEmail())
+                        .password(user.getPassword())
+                        .roles( "USER" )
+                        .build();
 
-
-
+        return userDetails;
+    }
 
 }
