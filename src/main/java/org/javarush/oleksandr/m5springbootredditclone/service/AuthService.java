@@ -16,32 +16,32 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class AuthService {
 
-    private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-
-    public void signup(RegisterRequestDTO registerRequest) {
-        User user = User.builder()
-                .email(registerRequest.getEmail())
-                .name(registerRequest.getName())
-                .username(registerRequest.getUsername())
-                .password(registerRequest.getPassword())
-                .created(java.time.Instant.now())
-                .enabled(true)
-                .build();
-
-        userService.save(user);
-    }
-
-    public AuthenticationResponseDTO login(LoginRequestDTO loginRequest) {
-        org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        loginRequest.getUsername(),
-                        loginRequest.getPassword()
-                ));
-
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
-
-        return AuthenticationResponseDTO.builder().build();
-    }
-
+//    private final UserService userService;
+//    private final AuthenticationManager authenticationManager;
+//
+//    public void signup(RegisterRequestDTO registerRequest) {
+//        User user = User.builder()
+//                .email(registerRequest.getEmail())
+//                .name(registerRequest.getName())
+//                .username(registerRequest.getUsername())
+//                .password(registerRequest.getPassword())
+//                .created(java.time.Instant.now())
+//                .enabled(true)
+//                .build();
+//
+//        userService.save(user);
+//    }
+//
+//    public AuthenticationResponseDTO login(LoginRequestDTO loginRequest) {
+//        org.springframework.security.core.Authentication authentication = authenticationManager.authenticate(
+//                new UsernamePasswordAuthenticationToken(
+//                        loginRequest.getUsername(),
+//                        loginRequest.getPassword()
+//                ));
+//
+////        SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//        return AuthenticationResponseDTO.builder().build();
+//    }
+//
 }
